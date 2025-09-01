@@ -64,7 +64,7 @@ var
    str : string;
 begin
    str := '<?xml version="1.0" encoding="utf-8" standalone="no"?>';
-   str := str + '<castwareXML APIVer="1.0" TaskType="TRANSCODING_JOB_LIST" JobName="TRANSCODING_JOB_LIST" UserID="btn">';
+   str := str + '<castwareXML APIVer="1.0" TaskType="TRANSCODING_JOB_LIST_UHD" JobName="TRANSCODING_JOB_LIST_UHD" UserID="btn">';
    str := str + '<command>';
    str := str + '</command>';
    str := str + '</castwareXML>';

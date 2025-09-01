@@ -1,18 +1,18 @@
 // ************************************************************************ //
 // The types declared in this file were generated from data read from the
 // WSDL File described below:
-// WSDL     : http://192.168.0.7:20100/CMS/Service.asmx?wsdl
-//  >Import : http://192.168.0.7:20100/CMS/Service.asmx?wsdl>0
+// WSDL     : http://192.168.0.16:20012/CMS/Service.asmx?wsdl
+//  >Import : http://192.168.0.16:20012/CMS/Service.asmx?wsdl>0
 // Encoding : utf-8
 // Version  : 1.0
-// (2016-01-27 오후 3:46:36 - - $Rev: 28374 $)
+// (2025-08-27 오전 11:25:52 - - $Rev: 76228 $)
 // ************************************************************************ //
 
 unit Service;
 
 interface
 
-uses InvokeRegistry, SOAPHTTPClient, Types, XSBuiltIns;
+uses Soap.InvokeRegistry, Soap.SOAPHTTPClient, System.Types, Soap.XSBuiltIns;
 
 const
   IS_OPTN = $0001;
@@ -25,12 +25,12 @@ type
   // The following types, referred to in the WSDL document are not being represented
   // in this file. They are either aliases[@] of other types represented or were referred
   // to but never[!] declared in the document. The types from the latter category
-  // typically map to predefined/known XML or Embarcadero types; however, they could also 
+  // typically map to predefined/known XML or Embarcadero types; however, they could also
   // indicate incorrect WSDL documents that failed to declare or import a schema type.
   // ************************************************************************ //
+  // !:long            - "http://www.w3.org/2001/XMLSchema"[Gbl]
   // !:string          - "http://www.w3.org/2001/XMLSchema"[Gbl]
   // !:int             - "http://www.w3.org/2001/XMLSchema"[Gbl]
-  // !:long            - "http://www.w3.org/2001/XMLSchema"[Gbl]
   // !:boolean         - "http://www.w3.org/2001/XMLSchema"[Gbl]
 
 
@@ -40,142 +40,116 @@ type
   // soapAction: http://www.castware.co.kr/%operationName%
   // transport : http://schemas.xmlsoap.org/soap/http
   // style     : document
-  // binding   : ServiceSoap12
+  // use       : literal
+  // binding   : ServiceSoap
   // service   : Service
-  // port      : ServiceSoap12
-  // URL       : http://192.168.0.7:20100/CMS/Service.asmx
+  // port      : ServiceSoap
+  // URL       : http://192.168.0.16:20012/CMS/Service.asmx
   // ************************************************************************ //
   ServiceSoap = interface(IInvokable)
-  ['{A1D71F03-68AE-4172-B6DB-A1B122A8D228}']
-    function  StorageAdd(const F_USERID: string; const F_TITLE: string; const F_DESC: string; const F_SERVICE_TYPE: string; const F_ACTIVE_TYPE: string; const F_ACTIVE_PATH: string; 
-                         const F_LOCAL_YESNO: string; const F_SHARED_YESNO: string; const F_FTP_YESNO: string; const F_HTTP_YESNO: string; const F_MMS_YESNO: string; 
-                         const F_LOCAL_PATH: string; const F_SHARED_PATH: string; const F_SHARED_ID: string; const F_SHARED_PWD: string; const F_FTP_IP: string; 
-                         const F_FTP_PORT: Integer; const F_FTP_PATH: string; const F_FTP_ID: string; const F_FTP_PWD: string; const F_HTTP_PATH: string; 
+  ['{DD9B287F-8B7F-39E3-C002-E95F0E4ED94A}']
+    function  StorageList: string; stdcall;
+    function  StorageListSearch(const F_SERVICE_TYPE: string): string; stdcall;
+    function  StorageAdd(const F_USERID: string; const F_TITLE: string; const F_DESC: string; const F_SERVICE_TYPE: string; const F_ACTIVE_TYPE: string; const F_ACTIVE_PATH: string;
+                         const F_LOCAL_YESNO: string; const F_SHARED_YESNO: string; const F_FTP_YESNO: string; const F_HTTP_YESNO: string; const F_MMS_YESNO: string;
+                         const F_LOCAL_PATH: string; const F_SHARED_PATH: string; const F_SHARED_ID: string; const F_SHARED_PWD: string; const F_FTP_IP: string;
+                         const F_FTP_PORT: Integer; const F_FTP_PATH: string; const F_FTP_ID: string; const F_FTP_PWD: string; const F_HTTP_PATH: string;
                          const F_HTTP_PORT: Integer; const F_HTTP_SUBPATH: string; const F_MMS_PATH: string): string; stdcall;
     function  StorageModify(const F_STORAGE_BASEKEY: Int64; const F_USERID: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
     function  StorageDelete: string; stdcall;
-    function  CoverAdd(const F_COVER_PATH: string; const F_COVER_FILENAME: string; const F_COVER_IMAGEFILE: string; const F_PARAMETER_COUNT: Integer; const F_REGIST_USERID: string; const F_TITLE: string; 
-                       const F_DESC: string): string; stdcall;
-    function  CoverListAll: string; stdcall;
-    function  CoverListPageSearch(const PageCount: Integer; const ItemCountPerPage: Integer; const SEARCH_TERM: string): string; stdcall;
-    function  CoverModify(const F_USERID: string; const F_COVER_BASEKEY: string; const F_TITLE: string; const F_DESC: string; const F_PARAMETER_COUNT: Integer): string; stdcall;
-    function  CoverDelete(const F_USERID: string; const F_COVER_BASEKEY: string): string; stdcall;
-    function  MemberLogin(const F_USERID: string; const F_USERPWD: string): string; stdcall;
-    function  MemberLoginEx(const F_USERID: string; const F_USERPWD: string): string; stdcall;
-    function  MemberAdd(const F_USERID: string; const F_USERPWD: string; const F_USERNAME: string; const F_USERLEVEL: Integer; const F_USER_EMAIL: string; const F_USER_TEL1: string; 
-                        const F_USER_TEL2: string; const F_USER_HP: string; const F_USER_PART: string; const F_PROJECTADD_AC: string; const F_PROJECTMODIFY_AC: string; 
-                        const F_PROJECTDELETE_AC: string; const F_CONTENTADD_AC: string; const F_CONTENTMODIFY_AC: string; const F_CONTENTDELETE_AC: string; const F_CATEGORYADD_AC: string; 
-                        const F_CATEGORYMODIFY_AC: string; const F_CATEGORYDELETE_AC: string; const F_MEMBERADD_AC: string; const F_MEMBERMODIFY_AC: string; const F_MEMBERDELETE_AC: string; 
-                        const F_STORAGEADD_AC: string; const F_STORAGEMODIFY_AC: string; const F_STORAGEDELETE_AC: string; const F_SYSTEMCONFIGADD_AC: string; const F_SYSTEMCONFIGMODIFY_AC: string; 
-                        const F_SYSTEMCONFIGDELETE_AC: string; const F_METAHEAD_AC: string; const F_EXTADD_AC: string; const F_EXTMODIFY_AC: string; const F_EXTDELETE_AC: string; 
-                        const F_CONTENTCHECK_AC: string; const F_TCWORK_AC: string; const F_RIMAGE_AC: string; const F_BACKUP_AC: string): string; stdcall;
-    function  MemberList: string; stdcall;
-    function  MemberModify(const F_USERID: string; const F_USERPWDOLD: string; const F_USERPWD: string; const F_USERNAME: string; const F_USERLEVEL: Integer; const F_USER_EMAIL: string; 
-                           const F_USER_TEL1: string; const F_USER_TEL2: string; const F_USER_HP: string; const F_USER_PART: string; const F_PROJECTADD_AC: string; 
-                           const F_PROJECTMODIFY_AC: string; const F_PROJECTDELETE_AC: string; const F_CONTENTADD_AC: string; const F_CONTENTMODIFY_AC: string; const F_CONTENTDELETE_AC: string; 
-                           const F_CATEGORYADD_AC: string; const F_CATEGORYMODIFY_AC: string; const F_CATEGORYDELETE_AC: string; const F_MEMBERADD_AC: string; const F_MEMBERMODIFY_AC: string; 
-                           const F_MEMBERDELETE_AC: string; const F_STORAGEADD_AC: string; const F_STORAGEMODIFY_AC: string; const F_STORAGEDELETE_AC: string; const F_SYSTEMCONFIGADD_AC: string; 
-                           const F_SYSTEMCONFIGMODIFY_AC: string; const F_SYSTEMCONFIGDELETE_AC: string; const F_METAHEAD_AC: string; const F_EXTADD_AC: string; const F_EXTMODIFY_AC: string; 
-                           const F_EXTDELETE_AC: string; const F_CONTENTCHECK_AC: string; const F_TCWORK_AC: string; const F_RIMAGE_AC: string; const F_BACKUP_AC: string
-                           ): string; stdcall;
-    function  MemberDelete(const F_USERID: string; const F_DELETE_USERID: string): string; stdcall;
-    function  ThumbnailListAll: string; stdcall;
-    function  ThumbnailListSearch(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_IMAGE_TYPE: string): string; stdcall;
-    function  ThumbnailAdd(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_STORAGE_BASEKEY: string; const F_IMAGE_FILENAME: string; const F_IMAGE_TYPE: string; 
-                           const F_USERID: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
-    function  ThumbnailModify(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_STORAGE_BASEKEY: string; const F_IMAGE_FILENAME: string; const F_IMAGE_TYPE: string; 
-                              const F_USERID: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
-    function  ThumbnailDelete(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_STORAGE_BASEKEY: string; const F_IMAGE_FILENAME: string; const F_IMAGE_TYPE: string; 
-                              const F_USERID: string): string; stdcall;
-    function  PCPAdd(const F_PCP_PATH: string; const F_PCP_FILENAME: string; const F_PRESET_CNT: Integer; const F_REGIST_USERID: string; const F_TITLE: string; const F_DESC: string
-                     ): string; stdcall;
-    function  PCPListAll: string; stdcall;
-    function  PCPListPageSearch(const PageCount: Integer; const ItemCountPerPage: Integer; const SEARCH_TERM: string): string; stdcall;
-    function  PCPModify(const F_USERID: string; const F_PCP_BASEKEY: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
-    function  PCPDelete(const F_USERID: string; const F_PCP_BASEKEY: string): string; stdcall;
-    function  TranscodeOrderUpdateEx(const F_TRANSCODEORDER_BASEKEY: string; const F_CONTENT_BASEKEY: string; const F_TRANSCODE_STATE: string; const F_SCD_SRCPATH: string; const F_SCD_SRCSUBPATH: string; const F_SCD_SRCFILENAME: string; 
-                                     const F_PROJECT_BASEKEY: Int64; const F_SCD_STATE: string): string; stdcall;
-    function  SCDOrderList(const PageCount: Integer; const ItemCountPerPage: Integer; const sDeviceIP: string; const sOrderState: string): string; stdcall;
-    function  SCDOrderUpdate(const F_SCDORDER_BASEKEY: string; const F_SCD_SRCFILENAME: string; const F_SCD_STATE: string; const sImageListData: string): string; stdcall;
-    function  SCDImageList(const PageCount: Integer; const ItemCountPerPage: Integer; const F_CONTENT_FILENAME: string): string; stdcall;
-    function  CategoryList: string; stdcall;
-    function  CategoryAdd(const F_USERID: string; const F_CTGRY_SUBKEY1: Integer; const F_CTGRY_SUBKEY2: Integer; const F_CTGRY_SUBKEY3: Integer; const F_CTGRY_NAME: string): string; stdcall;
-    function  CategoryModify(const F_USERID: string; const F_CTGRY_BASEKEY: Int64; const F_CTGRY_NAME: string): string; stdcall;
-    function  CategoryDelete(const F_USERID: string; const F_CTGRY_BASEKEY: Int64): string; stdcall;
-    function  ProjectAdd(const F_PROJECT_KEY: string; const F_PROJECT_TITLE: string; const F_PROJECT_DESC: string; const F_PROJECT_CATEGORY: string; const F_STORAGE_BASEKEY: Int64; const F_REGIST_USERID: string; 
-                         const F_PROJECT_SUBJECT: string; const F_PROJECT_KEYWORD: string; const F_PROJECT_STATUS: string): string; stdcall;
-    function  ProjectAdd_Auto(const F_PROJECT_KEY: string): string; stdcall;
-    function  ProjectCategoryList: string; stdcall;
-    function  ProjectList(const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_CATEGORY: string; const sqlSort: string; const sqlFilter: string; const ClientVerInfo: string
-                          ): string; stdcall;
-    function  ProjectModify(const F_PROJECT_BASEKEY: Int64; const F_PROJECT_TITLE: string; const F_PROJECT_DESC: string; const F_PROJECT_CATEGORY: string; const F_PROJECT_SUBJECT: string; const F_PROJECT_KEYWORD: string; 
-                            const F_PROJECT_STATUS: string; const F_USERID: string): string; stdcall;
-    function  ProjectDelete(const F_PROJECT_BASEKEY: Int64; const F_CONTENT_DELETE_YESNO_META: string; const F_CONTENT_DELETE_YESNO_FILE: string; const F_USERID: string): string; stdcall;
-    function  ContentAdd(const F_PROJECT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CREATE_DAY: string; const F_CONTENT_PATH: string; 
-                         const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; const F_CONTENT_FILESIZE: Int64; const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string; 
-                         const F_CONTENT_TYPE: string; const F_CONTENT_FORMAT: string; const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: Int64; const F_CONTENT_EDT_BASEKEY: Int64; 
-                         const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: Int64; const F_SHARE_YESNO: string; 
-                         const F_CONTENT_THUMBPATH: string; const F_CONTENT_THUMBFILE: string; const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; 
-                         const F_AUDIO_BITRATE: Integer; const F_STREAMING_YESNO: string; const F_EXTRA_INFO01: string; const F_EXTRA_INFO02: string; const F_EXTRA_INFO03: string; 
-                         const F_EXTRA_INFO04: string; const F_EXTRA_INFO05: string; const F_EXTRA_INFO06: string; const F_EXTRA_INFO07: string; const F_EXTRA_INFO08: string; 
-                         const F_EXTRA_INFO09: string; const F_EXTRA_INFO10: string; const F_EXTRA_INFO11: string; const F_EXTRA_INFO12: string; const F_EXTRA_INFO13: string; 
-                         const F_EXTRA_INFO14: string; const F_EXTRA_INFO15: string; const F_EXTRA_INFO16: string; const F_EXTRA_INFO17: string; const F_EXTRA_INFO18: string; 
+    function  ContentAdd(const F_PROJECT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CREATE_DAY: string; const F_CONTENT_PATH: string;
+                         const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; const F_CONTENT_FILESIZE: Int64; const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string;
+                         const F_CONTENT_TYPE: string; const F_CONTENT_FORMAT: string; const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: Int64; const F_CONTENT_EDT_BASEKEY: Int64;
+                         const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: Int64; const F_SHARE_YESNO: string;
+                         const F_CONTENT_THUMBPATH: string; const F_CONTENT_THUMBFILE: string; const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer;
+                         const F_AUDIO_BITRATE: Integer; const F_STREAMING_YESNO: string; const F_EXTRA_INFO01: string; const F_EXTRA_INFO02: string; const F_EXTRA_INFO03: string;
+                         const F_EXTRA_INFO04: string; const F_EXTRA_INFO05: string; const F_EXTRA_INFO06: string; const F_EXTRA_INFO07: string; const F_EXTRA_INFO08: string;
+                         const F_EXTRA_INFO09: string; const F_EXTRA_INFO10: string; const F_EXTRA_INFO11: string; const F_EXTRA_INFO12: string; const F_EXTRA_INFO13: string;
+                         const F_EXTRA_INFO14: string; const F_EXTRA_INFO15: string; const F_EXTRA_INFO16: string; const F_EXTRA_INFO17: string; const F_EXTRA_INFO18: string;
                          const F_EXTRA_INFO19: string; const F_EXTRA_INFO20: string): string; stdcall;
-    function  ContentAdd_WatchFolder(const F_PROJECT_BASEKEY: string; const F_CTGRY_BASEKEY: string; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CREATE_DAY: string; const F_CONTENT_PATH: string; 
-                                     const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; const F_CONTENT_FILESIZE: string; const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string; 
-                                     const F_CONTENT_TYPE: string; const F_CONTENT_FORMAT: string; const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; 
-                                     const F_CONTENT_RUNTIME: string; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: string; const F_SHARE_YESNO: string; 
-                                     const F_CONTENT_THUMBPATH: string; const F_CONTENT_THUMBFILE: string; const F_VIDEO_WIDTH: string; const F_VIDEO_HEIGHT: string; const F_VIDEO_BITRATE: string; 
-                                     const F_AUDIO_BITRATE: string; const F_STREAMING_YESNO: string; const F_PREVIEW_PATH: string; const F_PREVIEW_FILENAME: string; const F_EXTRA_INFO01: string; 
-                                     const F_EXTRA_INFO02: string; const F_EXTRA_INFO03: string; const F_EXTRA_INFO04: string; const F_EXTRA_INFO05: string; const F_EXTRA_INFO06: string; 
-                                     const F_EXTRA_INFO07: string; const F_EXTRA_INFO08: string; const F_EXTRA_INFO09: string; const F_EXTRA_INFO10: string; const F_EXTRA_INFO11: string; 
-                                     const F_EXTRA_INFO12: string; const F_EXTRA_INFO13: string; const F_EXTRA_INFO14: string; const F_EXTRA_INFO15: string; const F_EXTRA_INFO16: string; 
+    function  ContentAdd_WatchFolder(const F_PROJECT_BASEKEY: string; const F_CTGRY_BASEKEY: string; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CREATE_DAY: string; const F_CONTENT_PATH: string;
+                                     const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; const F_CONTENT_FILESIZE: string; const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string;
+                                     const F_CONTENT_TYPE: string; const F_CONTENT_FORMAT: string; const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string;
+                                     const F_CONTENT_RUNTIME: string; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: string; const F_SHARE_YESNO: string;
+                                     const F_CONTENT_THUMBPATH: string; const F_CONTENT_THUMBFILE: string; const F_VIDEO_WIDTH: string; const F_VIDEO_HEIGHT: string; const F_VIDEO_BITRATE: string;
+                                     const F_AUDIO_BITRATE: string; const F_STREAMING_YESNO: string; const F_PREVIEW_PATH: string; const F_PREVIEW_FILENAME: string; const F_EXTRA_INFO01: string;
+                                     const F_EXTRA_INFO02: string; const F_EXTRA_INFO03: string; const F_EXTRA_INFO04: string; const F_EXTRA_INFO05: string; const F_EXTRA_INFO06: string;
+                                     const F_EXTRA_INFO07: string; const F_EXTRA_INFO08: string; const F_EXTRA_INFO09: string; const F_EXTRA_INFO10: string; const F_EXTRA_INFO11: string;
+                                     const F_EXTRA_INFO12: string; const F_EXTRA_INFO13: string; const F_EXTRA_INFO14: string; const F_EXTRA_INFO15: string; const F_EXTRA_INFO16: string;
                                      const F_EXTRA_INFO17: string; const F_EXTRA_INFO18: string; const F_EXTRA_INFO19: string; const F_EXTRA_INFO20: string): string; stdcall;
-    function  ContentFileInfoUpdate(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; 
-                                    const F_CONTENT_FILESIZE: Int64; const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: Int64; 
+    function  ContentFileInfoUpdate(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string;
+                                    const F_CONTENT_FILESIZE: Int64; const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: Int64;
                                     const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; const F_AUDIO_BITRATE: Integer): string; stdcall;
-    function  ContentFileInfoUpdateEx(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; 
-                                      const F_CONTENT_FILESIZE: Int64; const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: Int64; 
-                                      const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; const F_AUDIO_BITRATE: Integer; const chkPreview: string; 
-                                      const sProductType: string; const sOrderType: string; const F_TRANSCODE_STATE: string; const F_PROCODER_DEVICE: string; const F_PCP_PATH: string; 
+    function  ContentFileInfoUpdateEx(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string;
+                                      const F_CONTENT_FILESIZE: Int64; const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_STORAGE_CHECK: string; const F_STORAGE_BASEKEY: Int64;
+                                      const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; const F_AUDIO_BITRATE: Integer; const chkPreview: string;
+                                      const sProductType: string; const sOrderType: string; const F_TRANSCODE_STATE: string; const F_PROCODER_DEVICE: string; const F_PCP_PATH: string;
                                       const F_PCP_NAME: string; const F_PCP_COUNT: Integer): string; stdcall;
     function  ContentFileInfoUpdateImage(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CONTENT_FILENAME: string; const thumb_path: string; const thumb_file: string
                                          ): string; stdcall;
+    function  ContentFileInfoUpdateAudio(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_REGIST_USERID: string; const F_CONTENT_FILENAME: string; const F_CONTENT_FILESIZE: Int64): string; stdcall;
     function  GetContentAbstractInfo(const F_CONTENT_BASEKEY: string): string; stdcall;
-    function  ContentList(const ClientVerInfo: string; const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_BASEKEY: Int64; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; 
-                          const F_CONTENT_TYPE: string; const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; const DELETE_FILTER: string; 
+    function  ContentList(const ClientVerInfo: string; const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_BASEKEY: Int64; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64;
+                          const F_CONTENT_TYPE: string; const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; const DELETE_FILTER: string;
                           const sqlSort: string; const sqlSearch: string): string; stdcall;
-    function  ContentModify(const F_USERID: string; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_CREATE_DAY: string; const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string; 
-                            const F_SHARE_YESNO: string; const F_CONTENT_THUMBPATH: string; const F_CONTENT_THUMBFILE: string; const F_CONTENT_FILESIZE: Int64; const F_CONTENT_RUNTIME: Int64; 
-                            const F_CONTENT_RUNTIME_DSP: string; const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; const F_AUDIO_BITRATE: Integer; 
-                            const F_STREAMING_YESNO: string; const F_EXTRA_INFO01: string; const F_EXTRA_INFO02: string; const F_EXTRA_INFO03: string; const F_EXTRA_INFO04: string; 
-                            const F_EXTRA_INFO05: string; const F_EXTRA_INFO06: string; const F_EXTRA_INFO07: string; const F_EXTRA_INFO08: string; const F_EXTRA_INFO09: string; 
-                            const F_EXTRA_INFO10: string; const F_EXTRA_INFO11: string; const F_EXTRA_INFO12: string; const F_EXTRA_INFO13: string; const F_EXTRA_INFO14: string; 
-                            const F_EXTRA_INFO15: string; const F_EXTRA_INFO16: string; const F_EXTRA_INFO17: string; const F_EXTRA_INFO18: string; const F_EXTRA_INFO19: string; 
+    function  ContentModify(const F_USERID: string; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_CREATE_DAY: string; const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string;
+                            const F_SHARE_YESNO: string; const F_CONTENT_THUMBPATH: string; const F_CONTENT_THUMBFILE: string; const F_CONTENT_FILESIZE: Int64; const F_CONTENT_RUNTIME: Int64;
+                            const F_CONTENT_RUNTIME_DSP: string; const F_VIDEO_WIDTH: Integer; const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; const F_AUDIO_BITRATE: Integer;
+                            const F_STREAMING_YESNO: string; const F_EXTRA_INFO01: string; const F_EXTRA_INFO02: string; const F_EXTRA_INFO03: string; const F_EXTRA_INFO04: string;
+                            const F_EXTRA_INFO05: string; const F_EXTRA_INFO06: string; const F_EXTRA_INFO07: string; const F_EXTRA_INFO08: string; const F_EXTRA_INFO09: string;
+                            const F_EXTRA_INFO10: string; const F_EXTRA_INFO11: string; const F_EXTRA_INFO12: string; const F_EXTRA_INFO13: string; const F_EXTRA_INFO14: string;
+                            const F_EXTRA_INFO15: string; const F_EXTRA_INFO16: string; const F_EXTRA_INFO17: string; const F_EXTRA_INFO18: string; const F_EXTRA_INFO19: string;
                             const F_EXTRA_INFO20: string): string; stdcall;
     function  ContentDelete(const F_USERID: string; const F_CONTENT_BASEKEY: Int64; const F_DELETE_META_YESNO: string; const F_DELETE_FILE_YESNO: string): string; stdcall;
+    function  VideoContentDeleteMulti(const F_USERID: string; const content_id_list: string; const F_DELETE_META_YESNO: string; const F_DELETE_FILE_YESNO: string): string; stdcall;
+    function  AudioContentDelete(const F_USERID: string; const F_CONTENT_BASEKEY: Int64; const F_DELETE_META_YESNO: string; const F_DELETE_FILE_YESNO: string): string; stdcall;
+    function  AudioContentDeleteMulti(const F_USERID: string; const content_id_list: string; const F_DELETE_META_YESNO: string; const F_DELETE_FILE_YESNO: string): string; stdcall;
     function  ContentVanish(const F_USERID: string; const F_CONTENT_BASEKEY: Int64; const F_DELETE_META_YESNO: string; const F_DELETE_FILE_YESNO: string): string; stdcall;
     function  ContentRecovery(const F_CONTENT_BASEKEY: Int64; const F_REGIST_USERID: string; const F_STORAGE_CHECK: string; const F_CONTENT_FILENAME: string): string; stdcall;
     function  ContentSetPreview(const F_USERID: string; const F_CONTENT_BASEKEY: Int64; const F_PREVIEW_PATH: string; const F_PREVIEW_FILENAME: string): string; stdcall;
     function  ContentCheck(const F_CONTENT_BASEKEY: Int64; const F_CHECK_USERID: string; const F_CHECK_RESULT: string; const F_CHECK_REMARKS: string): string; stdcall;
     function  ContentDeleteList: string; stdcall;
     function  ContentDeleteUpdate(const F_DELETE_BASEKEY: string; const F_DELETED_FILE: string): string; stdcall;
-    function  ContentDeletedList(const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_BASEKEY: Int64; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_CONTENT_TYPE: string; 
-                                 const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; const DELETE_FILTER: string; const sqlSort: string; 
+    function  ContentDeletedList(const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_BASEKEY: Int64; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_CONTENT_TYPE: string;
+                                 const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; const DELETE_FILTER: string; const sqlSort: string;
                                  const sqlSearch: string): string; stdcall;
-    function  ContentDeletedListEx(const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_BASEKEY: Int64; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_CONTENT_TYPE: string; 
-                                   const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; const DELETE_FILTER: string; const sqlSort: string; 
+    function  ContentDeletedListEx(const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_BASEKEY: Int64; const F_CONTENT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_CONTENT_TYPE: string;
+                                   const F_CONTENT_WORKSTEP: string; const F_CONTENT_ORG_BASEKEY: string; const F_CONTENT_EDT_BASEKEY: string; const DELETE_FILTER: string; const sqlSort: string;
                                    const sqlSearch: string): string; stdcall;
     function  ContentLog(const F_CONTENT_BASEKEY: Int64): string; stdcall;
-    function  EdiusPluginContentAddTemp(const F_PROJECT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_STORAGE_BASEKEY: Int64; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; 
-                                        const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string; const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_VIDEO_WIDTH: Integer; 
+    function  EdiusPluginContentAddTemp(const F_PROJECT_BASEKEY: Int64; const F_CTGRY_BASEKEY: Int64; const F_STORAGE_BASEKEY: Int64; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string;
+                                        const F_CONTENT_TITLE: string; const F_CONTENT_DESC: string; const F_CONTENT_RUNTIME: Int64; const F_CONTENT_RUNTIME_DSP: string; const F_VIDEO_WIDTH: Integer;
                                         const F_VIDEO_HEIGHT: Integer; const F_VIDEO_BITRATE: Integer; const F_AUDIO_BITRATE: Integer): string; stdcall;
     function  EdiusPluginContentAddCompleteTemp(const F_CONTENT_BASEKEY: Int64; const F_FILETRANS_YESNO: string; const F_CONTENT_PATH: string; const F_CONTENT_SUBPATH: string; const F_CONTENT_FILENAME: string; const F_CONTENT_FILESIZE: Int64
                                                 ): string; stdcall;
-    function  VersionInfo: string; stdcall;
-    function  CheckFileExists(const F_CONTENT_FILENAME: string): Integer; stdcall;
-    function  TestEngineAPI(const sData: string): string; stdcall;
-    function  EngineAPI(const sData: string): string; stdcall;
+    function  PCPAdd(const F_PCP_PATH: string; const F_PCP_FILENAME: string; const F_PRESET_CNT: Integer; const F_REGIST_USERID: string; const F_TITLE: string; const F_DESC: string
+                     ): string; stdcall;
+    function  PCPListAll: string; stdcall;
+    function  PCPListPageSearch(const PageCount: Integer; const ItemCountPerPage: Integer; const SEARCH_TERM: string): string; stdcall;
+    function  PCPModify(const F_USERID: string; const F_PCP_BASEKEY: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
+    function  PCPDelete(const F_USERID: string; const F_PCP_BASEKEY: string): string; stdcall;
+    function  TranscodeOrderUpdateEx(const F_TRANSCODEORDER_BASEKEY: string; const F_CONTENT_BASEKEY: string; const F_TRANSCODE_STATE: string; const F_SCD_SRCPATH: string; const F_SCD_SRCSUBPATH: string; const F_SCD_SRCFILENAME: string;
+                                     const F_PROJECT_BASEKEY: Int64; const F_SCD_STATE: string): string; stdcall;
+    function  SCDOrderList(const PageCount: Integer; const ItemCountPerPage: Integer; const sDeviceIP: string; const sOrderState: string): string; stdcall;
+    function  SCDOrderUpdate(const F_SCDORDER_BASEKEY: string; const F_SCD_SRCFILENAME: string; const F_SCD_STATE: string; const sImageListData: string): string; stdcall;
+    function  SCDImageList(const PageCount: Integer; const ItemCountPerPage: Integer; const F_CONTENT_FILENAME: string): string; stdcall;
+    function  ProjectAdd(const F_PROJECT_KEY: string; const F_PROJECT_TITLE: string; const F_PROJECT_DESC: string; const F_PROJECT_CATEGORY: string; const F_STORAGE_BASEKEY: Int64; const F_REGIST_USERID: string;
+                         const F_PROJECT_SUBJECT: string; const F_PROJECT_KEYWORD: string; const F_PROJECT_STATUS: string): string; stdcall;
+    function  ProjectAdd_Auto(const F_PROJECT_KEY: string): string; stdcall;
+    function  ProjectCategoryList: string; stdcall;
+    function  ProjectList(const PageCount: Integer; const ItemCountPerPage: Integer; const F_PROJECT_CATEGORY: string; const sqlSort: string; const sqlFilter: string; const ClientVerInfo: string
+                          ): string; stdcall;
+    function  ProjectModify(const F_PROJECT_BASEKEY: Int64; const F_PROJECT_TITLE: string; const F_PROJECT_DESC: string; const F_PROJECT_CATEGORY: string; const F_PROJECT_SUBJECT: string; const F_PROJECT_KEYWORD: string;
+                            const F_PROJECT_STATUS: string; const F_USERID: string): string; stdcall;
+    function  ProjectDelete(const F_PROJECT_BASEKEY: Int64; const F_CONTENT_DELETE_YESNO_META: string; const F_CONTENT_DELETE_YESNO_FILE: string; const F_USERID: string): string; stdcall;
+    function  ThumbnailListAll: string; stdcall;
+    function  ThumbnailListSearch(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_IMAGE_TYPE: string): string; stdcall;
+    function  ThumbnailAdd(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_STORAGE_BASEKEY: string; const F_IMAGE_FILENAME: string; const F_IMAGE_TYPE: string;
+                           const F_USERID: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
+    function  ThumbnailModify(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_STORAGE_BASEKEY: string; const F_IMAGE_FILENAME: string; const F_IMAGE_TYPE: string;
+                              const F_USERID: string; const F_TITLE: string; const F_DESC: string): string; stdcall;
+    function  ThumbnailDelete(const F_CONTENT_BASEKEY: string; const F_CONTENT_SUBKEY: string; const F_CONTENT_TYPE: string; const F_STORAGE_BASEKEY: string; const F_IMAGE_FILENAME: string; const F_IMAGE_TYPE: string;
+                              const F_USERID: string): string; stdcall;
     function  ServerList(const F_WORK_TYPE: string): string; stdcall;
     function  ServerAdd(const F_USERID: string; const F_IP: string; const F_PORT: Integer; const F_WORK_TYPE: string; const F_TITLE: string): string; stdcall;
     function  ServerModify(const F_USERID: string; const F_KEY: Int64; const F_IP: string; const F_PORT: Integer; const F_WORK_TYPE: string; const F_TITLE: string
@@ -192,26 +166,65 @@ type
     function  ProCoderAgentAdd(const F_USERID: string; const F_IP: string; const F_PORT: Integer): string; stdcall;
     function  SetMetaHead(const F_USERID: string; const FieldData: string): string; stdcall;
     function  GetMetaHead: string; stdcall;
+    function  SetAudioMetaHead(const F_USERID: string; const FieldData: string): string; stdcall;
+    function  GetAudioMetaHead: string; stdcall;
+    function  SetAgilityPreset(const F_USERID: string; const FieldData: string): string; stdcall;
+    function  GetAgilityPreset: string; stdcall;
     function  GetEngineConnectionString(const Code: string): string; stdcall;
     function  SetEngineConnectionString(const Code: string; const Value: string): string; stdcall;
     function  ReportingContents(const F_USERID: string; const QueryData: string): string; stdcall;
     function  ExecuteSQL(const Code: string; const bTransaction: Boolean; const sqlQuery: string): string; stdcall;
-    function  StorageList: string; stdcall;
-    function  StorageListSearch(const F_SERVICE_TYPE: string): string; stdcall;
+    function  CoverAdd(const F_COVER_PATH: string; const F_COVER_FILENAME: string; const F_COVER_IMAGEFILE: string; const F_PARAMETER_COUNT: Integer; const F_REGIST_USERID: string; const F_TITLE: string;
+                       const F_DESC: string): string; stdcall;
+    function  CoverListAll: string; stdcall;
+    function  CoverListPageSearch(const PageCount: Integer; const ItemCountPerPage: Integer; const SEARCH_TERM: string): string; stdcall;
+    function  CoverModify(const F_USERID: string; const F_COVER_BASEKEY: string; const F_TITLE: string; const F_DESC: string; const F_PARAMETER_COUNT: Integer): string; stdcall;
+    function  CoverDelete(const F_USERID: string; const F_COVER_BASEKEY: string): string; stdcall;
+    function  TestEngineAPI(const sData: string): string; stdcall;
+    function  EngineAPI(const sData: string): string; stdcall;
+    function  CategoryList: string; stdcall;
+    function  CategoryAdd(const F_USERID: string; const F_CTGRY_SUBKEY1: Integer; const F_CTGRY_SUBKEY2: Integer; const F_CTGRY_SUBKEY3: Integer; const F_CTGRY_NAME: string): string; stdcall;
+    function  CategoryModify(const F_USERID: string; const F_CTGRY_BASEKEY: Int64; const F_CTGRY_NAME: string): string; stdcall;
+    function  CategoryDelete(const F_USERID: string; const F_CTGRY_BASEKEY: Int64): string; stdcall;
+    function  AudioCategoryList: string; stdcall;
+    function  AudioCategoryAdd(const F_USERID: string; const F_CTGRY_SUBKEY1: Integer; const F_CTGRY_SUBKEY2: Integer; const F_CTGRY_SUBKEY3: Integer; const F_CTGRY_NAME: string): string; stdcall;
+    function  AudioCategoryModify(const F_USERID: string; const F_CTGRY_BASEKEY: Int64; const F_CTGRY_NAME: string): string; stdcall;
+    function  AudioCategoryDelete(const F_USERID: string; const F_CTGRY_BASEKEY: Int64): string; stdcall;
+    function  MemberLogin(const F_USERID: string; const F_USERPWD: string): string; stdcall;
+    function  MemberLoginEx(const F_USERID: string; const F_USERPWD: string): string; stdcall;
+    function  MemberAdd(const F_USERID: string; const F_USERPWD: string; const F_USERNAME: string; const F_USERLEVEL: Integer; const F_USER_EMAIL: string; const F_USER_TEL1: string;
+                        const F_USER_TEL2: string; const F_USER_HP: string; const F_USER_PART: string; const F_PROJECTADD_AC: string; const F_PROJECTMODIFY_AC: string;
+                        const F_PROJECTDELETE_AC: string; const F_CONTENTADD_AC: string; const F_CONTENTMODIFY_AC: string; const F_CONTENTDELETE_AC: string; const F_CATEGORYADD_AC: string;
+                        const F_CATEGORYMODIFY_AC: string; const F_CATEGORYDELETE_AC: string; const F_MEMBERADD_AC: string; const F_MEMBERMODIFY_AC: string; const F_MEMBERDELETE_AC: string;
+                        const F_STORAGEADD_AC: string; const F_STORAGEMODIFY_AC: string; const F_STORAGEDELETE_AC: string; const F_SYSTEMCONFIGADD_AC: string; const F_SYSTEMCONFIGMODIFY_AC: string;
+                        const F_SYSTEMCONFIGDELETE_AC: string; const F_METAHEAD_AC: string; const F_EXTADD_AC: string; const F_EXTMODIFY_AC: string; const F_EXTDELETE_AC: string;
+                        const F_CONTENTCHECK_AC: string; const F_TCWORK_AC: string; const F_RIMAGE_AC: string; const F_BACKUP_AC: string): string; stdcall;
+    function  MemberList: string; stdcall;
+    function  MemberModify(const F_USERID: string; const F_USERPWDOLD: string; const F_USERPWD: string; const F_USERNAME: string; const F_USERLEVEL: Integer; const F_USER_EMAIL: string;
+                           const F_USER_TEL1: string; const F_USER_TEL2: string; const F_USER_HP: string; const F_USER_PART: string; const F_PROJECTADD_AC: string;
+                           const F_PROJECTMODIFY_AC: string; const F_PROJECTDELETE_AC: string; const F_CONTENTADD_AC: string; const F_CONTENTMODIFY_AC: string; const F_CONTENTDELETE_AC: string;
+                           const F_CATEGORYADD_AC: string; const F_CATEGORYMODIFY_AC: string; const F_CATEGORYDELETE_AC: string; const F_MEMBERADD_AC: string; const F_MEMBERMODIFY_AC: string;
+                           const F_MEMBERDELETE_AC: string; const F_STORAGEADD_AC: string; const F_STORAGEMODIFY_AC: string; const F_STORAGEDELETE_AC: string; const F_SYSTEMCONFIGADD_AC: string;
+                           const F_SYSTEMCONFIGMODIFY_AC: string; const F_SYSTEMCONFIGDELETE_AC: string; const F_METAHEAD_AC: string; const F_EXTADD_AC: string; const F_EXTMODIFY_AC: string;
+                           const F_EXTDELETE_AC: string; const F_CONTENTCHECK_AC: string; const F_TCWORK_AC: string; const F_RIMAGE_AC: string; const F_BACKUP_AC: string
+                           ): string; stdcall;
+    function  MemberDelete(const F_USERID: string; const F_DELETE_USERID: string): string; stdcall;
+    function  VersionInfo: string; stdcall;
+    function  CheckFileExists(const F_CONTENT_FILENAME: string): Integer; stdcall;
   end;
 
 function GetServiceSoap(UseWSDL: Boolean=System.False; Addr: string=''; HTTPRIO: THTTPRIO = nil): ServiceSoap;
 
 
 implementation
-  uses SysUtils;
+  uses System.SysUtils;
 
 function GetServiceSoap(UseWSDL: Boolean; Addr: string; HTTPRIO: THTTPRIO): ServiceSoap;
 const
-  defWSDL = 'http://192.168.0.7:20100/CMS/Service.asmx?wsdl';
-  defURL  = 'http://192.168.0.7:20100/CMS/Service.asmx';
+  defWSDL = 'http://192.168.0.16:20012/CMS/Service.asmx?wsdl';
+  defURL  = 'http://192.168.0.16:20012/CMS/Service.asmx';
   defSvc  = 'Service';
-  defPrt  = 'ServiceSoap12';
+  defPrt  = 'ServiceSoap';
 var
   RIO: THTTPRIO;
 begin
@@ -244,596 +257,291 @@ end;
 
 
 initialization
+  { ServiceSoap }
   InvRegistry.RegisterInterface(TypeInfo(ServiceSoap), 'http://www.castware.co.kr/', 'utf-8');
   InvRegistry.RegisterDefaultSOAPAction(TypeInfo(ServiceSoap), 'http://www.castware.co.kr/%operationName%');
   InvRegistry.RegisterInvokeOptions(TypeInfo(ServiceSoap), ioDocument);
-  InvRegistry.RegisterInvokeOptions(TypeInfo(ServiceSoap), ioSOAP12);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_SERVICE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_ACTIVE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_ACTIVE_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_LOCAL_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_SHARED_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_FTP_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_HTTP_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_MMS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_LOCAL_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_SHARED_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_SHARED_ID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_SHARED_PWD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_FTP_IP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_FTP_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_FTP_ID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_FTP_PWD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_HTTP_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_HTTP_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'F_MMS_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageAdd', 'StorageAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageModify', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageModify', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageModify', 'StorageModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageDelete', 'StorageDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'F_COVER_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'F_COVER_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'F_COVER_IMAGEFILE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverAdd', 'CoverAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverListAll', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverListAll', 'CoverListAllResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverListPageSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverListPageSearch', 'SEARCH_TERM', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverListPageSearch', 'CoverListPageSearchResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverModify', 'F_COVER_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverModify', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverModify', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverModify', 'CoverModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverDelete', 'F_COVER_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CoverDelete', 'CoverDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberLogin', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberLogin', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberLogin', 'F_USERPWD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberLogin', 'MemberLoginResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberLoginEx', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberLoginEx', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberLoginEx', 'F_USERPWD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberLoginEx', 'MemberLoginExResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USERPWD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USERNAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USER_EMAIL', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USER_TEL1', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USER_TEL2', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USER_HP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_USER_PART', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_PROJECTADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_PROJECTMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_PROJECTDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CONTENTADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CONTENTMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CONTENTDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CATEGORYADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CATEGORYMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CATEGORYDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_MEMBERADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_MEMBERMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_MEMBERDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_STORAGEADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_STORAGEMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_STORAGEDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_SYSTEMCONFIGADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_SYSTEMCONFIGMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_SYSTEMCONFIGDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_METAHEAD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_EXTADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_EXTMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_EXTDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_CONTENTCHECK_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_TCWORK_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_RIMAGE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'F_BACKUP_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberAdd', 'MemberAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberList', 'MemberListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USERPWDOLD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USERPWD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USERNAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USER_EMAIL', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USER_TEL1', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USER_TEL2', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USER_HP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_USER_PART', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_PROJECTADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_PROJECTMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_PROJECTDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CONTENTADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CONTENTMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CONTENTDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CATEGORYADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CATEGORYMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CATEGORYDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_MEMBERADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_MEMBERMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_MEMBERDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_STORAGEADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_STORAGEMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_STORAGEDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_SYSTEMCONFIGADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_SYSTEMCONFIGMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_SYSTEMCONFIGDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_METAHEAD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_EXTADD_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_EXTMODIFY_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_EXTDELETE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_CONTENTCHECK_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_TCWORK_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_RIMAGE_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'F_BACKUP_AC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberModify', 'MemberModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberDelete', 'F_DELETE_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'MemberDelete', 'MemberDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailListAll', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailListAll', 'ThumbnailListAllResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', 'F_CONTENT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', 'F_CONTENT_SUBKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', 'F_IMAGE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', 'ThumbnailListSearchResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_CONTENT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_CONTENT_SUBKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_STORAGE_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_IMAGE_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_IMAGE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', 'ThumbnailAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_CONTENT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_CONTENT_SUBKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_STORAGE_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_IMAGE_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_IMAGE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', 'ThumbnailModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_CONTENT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_CONTENT_SUBKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_STORAGE_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_IMAGE_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_IMAGE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', 'ThumbnailDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPAdd', 'F_PCP_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPAdd', 'F_PCP_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPAdd', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPAdd', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPAdd', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPAdd', 'PCPAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPListAll', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPListAll', 'PCPListAllResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPListPageSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPListPageSearch', 'SEARCH_TERM', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPListPageSearch', 'PCPListPageSearchResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPModify', 'F_PCP_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPModify', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPModify', 'F_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPModify', 'PCPModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPDelete', 'F_PCP_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'PCPDelete', 'PCPDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_TRANSCODEORDER_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_CONTENT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_TRANSCODE_STATE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_SCD_SRCPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_SCD_SRCSUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_SCD_SRCFILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'F_SCD_STATE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', 'TranscodeOrderUpdateExResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SCDOrderList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderList', 'sDeviceIP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderList', 'sOrderState', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderList', 'SCDOrderListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', 'F_SCDORDER_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', 'F_SCD_SRCFILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', 'F_SCD_STATE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', 'sImageListData', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', 'SCDOrderUpdateResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SCDImageList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDImageList', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SCDImageList', 'SCDImageListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryList', 'CategoryListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryAdd', 'F_CTGRY_NAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryAdd', 'CategoryAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryModify', 'F_CTGRY_NAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryModify', 'CategoryModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CategoryDelete', 'CategoryDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_KEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_CATEGORY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_SUBJECT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_KEYWORD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'F_PROJECT_STATUS', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd', 'ProjectAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectAdd_Auto', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd_Auto', 'F_PROJECT_KEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectAdd_Auto', 'ProjectAdd_AutoResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectCategoryList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectCategoryList', 'ProjectCategoryListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectList', 'F_PROJECT_CATEGORY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectList', 'sqlSort', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectList', 'sqlFilter', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectList', 'ClientVerInfo', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectList', 'ProjectListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_PROJECT_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_PROJECT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_PROJECT_CATEGORY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_PROJECT_SUBJECT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_PROJECT_KEYWORD', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_PROJECT_STATUS', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectModify', 'ProjectModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectDelete', 'F_CONTENT_DELETE_YESNO_META', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectDelete', 'F_CONTENT_DELETE_YESNO_FILE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProjectDelete', 'ProjectDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_FILETRANS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CREATE_DAY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_FORMAT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_WORKSTEP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_RUNTIME_DSP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_STORAGE_CHECK', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_SHARE_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_THUMBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_CONTENT_THUMBFILE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_STREAMING_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO01', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO02', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO03', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO04', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO05', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO06', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO07', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO08', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO09', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO10', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO11', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO12', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO13', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO14', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO15', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO16', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO17', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO18', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO19', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'F_EXTRA_INFO20', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd', 'ContentAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_PROJECT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CTGRY_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_FILETRANS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CREATE_DAY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_FILESIZE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_FORMAT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_WORKSTEP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_ORG_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_EDT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_RUNTIME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_RUNTIME_DSP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_STORAGE_CHECK', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_STORAGE_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_SHARE_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_THUMBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_CONTENT_THUMBFILE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_VIDEO_WIDTH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_VIDEO_HEIGHT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_VIDEO_BITRATE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_AUDIO_BITRATE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_STREAMING_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_PREVIEW_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_PREVIEW_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO01', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO02', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO03', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO04', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO05', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO06', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO07', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO08', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO09', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO10', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO11', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO12', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO13', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO14', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO15', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO16', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO17', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO18', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO19', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'F_EXTRA_INFO20', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', 'ContentAdd_WatchFolderResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_FILETRANS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_CONTENT_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_CONTENT_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_CONTENT_RUNTIME_DSP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'F_STORAGE_CHECK', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', 'ContentFileInfoUpdateResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_FILETRANS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_CONTENT_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_CONTENT_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_CONTENT_RUNTIME_DSP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_STORAGE_CHECK', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'chkPreview', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'sProductType', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'sOrderType', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_TRANSCODE_STATE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_PROCODER_DEVICE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_PCP_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'F_PCP_NAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', 'ContentFileInfoUpdateExResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', 'F_FILETRANS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', 'thumb_path', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', 'thumb_file', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', 'ContentFileInfoUpdateImageResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetContentAbstractInfo', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'GetContentAbstractInfo', 'F_CONTENT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'GetContentAbstractInfo', 'GetContentAbstractInfoResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'ClientVerInfo', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'F_CONTENT_WORKSTEP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'F_CONTENT_ORG_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'F_CONTENT_EDT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'DELETE_FILTER', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'sqlSort', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'sqlSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentList', 'ContentListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_CREATE_DAY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_CONTENT_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_CONTENT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_SHARE_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_CONTENT_THUMBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_CONTENT_THUMBFILE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_CONTENT_RUNTIME_DSP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_STREAMING_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO01', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO02', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO03', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO04', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO05', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO06', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO07', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO08', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO09', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO10', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO11', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO12', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO13', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO14', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO15', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO16', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO17', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO18', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO19', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'F_EXTRA_INFO20', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentModify', 'ContentModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDelete', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDelete', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDelete', 'F_DELETE_META_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDelete', 'F_DELETE_FILE_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDelete', 'ContentDeleteResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentVanish', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentVanish', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentVanish', 'F_DELETE_META_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentVanish', 'F_DELETE_FILE_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentVanish', 'ContentVanishResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentRecovery', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentRecovery', 'F_REGIST_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentRecovery', 'F_STORAGE_CHECK', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentRecovery', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentRecovery', 'ContentRecoveryResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentSetPreview', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentSetPreview', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentSetPreview', 'F_PREVIEW_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentSetPreview', 'F_PREVIEW_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentSetPreview', 'ContentSetPreviewResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentCheck', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentCheck', 'F_CHECK_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentCheck', 'F_CHECK_RESULT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentCheck', 'F_CHECK_REMARKS', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentCheck', 'ContentCheckResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeleteList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeleteList', 'ContentDeleteListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeleteUpdate', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeleteUpdate', 'F_DELETE_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeleteUpdate', 'F_DELETED_FILE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeleteUpdate', 'ContentDeleteUpdateResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'F_CONTENT_WORKSTEP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'F_CONTENT_ORG_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'F_CONTENT_EDT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'DELETE_FILTER', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'sqlSort', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'sqlSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', 'ContentDeletedListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'F_CONTENT_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'F_CONTENT_WORKSTEP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'F_CONTENT_ORG_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'F_CONTENT_EDT_BASEKEY', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'DELETE_FILTER', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'sqlSort', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'sqlSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', 'ContentDeletedListExResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentLog', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ContentLog', 'ContentLogResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'F_CONTENT_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'F_CONTENT_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'F_CONTENT_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'F_CONTENT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'F_CONTENT_RUNTIME_DSP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', 'EdiusPluginContentAddTempResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', 'F_FILETRANS_YESNO', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', 'F_CONTENT_PATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', 'F_CONTENT_SUBPATH', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', 'EdiusPluginContentAddCompleteTempResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'VersionInfo', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'VersionInfo', 'VersionInfoResult', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'CheckFileExists', 'F_CONTENT_FILENAME', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'TestEngineAPI', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TestEngineAPI', 'sData', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'TestEngineAPI', 'TestEngineAPIResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'EngineAPI', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EngineAPI', 'sData', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'EngineAPI', 'EngineAPIResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ServerList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerList', 'F_WORK_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerList', 'ServerListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ServerAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerAdd', 'F_IP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerAdd', 'F_WORK_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerAdd', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerAdd', 'ServerAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ServerModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerModify', 'F_IP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerModify', 'F_WORK_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerModify', 'F_TITLE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ServerModify', 'ServerModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExtList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtList', 'F_FILE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtList', 'ExtListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExtAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtAdd', 'F_FILE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtAdd', 'F_EXT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtAdd', 'F_EXT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtAdd', 'F_REL_APP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtAdd', 'ExtAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExtModify', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtModify', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtModify', 'F_FILE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtModify', 'F_EXT_DESC', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtModify', 'F_EXT', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtModify', 'F_REL_APP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExtModify', 'ExtModifyResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'RimageAgentList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'RimageAgentList', 'RimageAgentListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'RimageAgentInfo', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'RimageAgentInfo', 'RimageAgentInfoResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'RimageAgentAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'RimageAgentAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'RimageAgentAdd', 'F_IP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'RimageAgentAdd', 'RimageAgentAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProCoderAgentInfo', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProCoderAgentInfo', 'ProCoderAgentInfoResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProCoderAgentList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProCoderAgentList', 'ProCoderAgentListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProCoderAgentAdd', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProCoderAgentAdd', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProCoderAgentAdd', 'F_IP', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ProCoderAgentAdd', 'ProCoderAgentAddResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SetMetaHead', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SetMetaHead', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SetMetaHead', 'FieldData', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SetMetaHead', 'SetMetaHeadResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetMetaHead', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'GetMetaHead', 'GetMetaHeadResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetEngineConnectionString', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'GetEngineConnectionString', 'Code', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'GetEngineConnectionString', 'GetEngineConnectionStringResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SetEngineConnectionString', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SetEngineConnectionString', 'Code', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SetEngineConnectionString', 'Value', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'SetEngineConnectionString', 'SetEngineConnectionStringResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ReportingContents', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ReportingContents', 'F_USERID', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ReportingContents', 'QueryData', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ReportingContents', 'ReportingContentsResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExecuteSQL', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExecuteSQL', 'Code', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExecuteSQL', 'sqlQuery', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'ExecuteSQL', 'ExecuteSQLResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageList', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageList', 'StorageListResult', '', '', IS_OPTN);
-  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageListSearch', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageListSearch', 'F_SERVICE_TYPE', '', '', IS_OPTN);
-  InvRegistry.RegisterParamInfo(TypeInfo(ServiceSoap), 'StorageListSearch', 'StorageListSearchResult', '', '', IS_OPTN);
+  { ServiceSoap.StorageList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageList', '',
+                                 '[ReturnName="StorageListResult"]', IS_OPTN);
+  { ServiceSoap.StorageListSearch }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageListSearch', '',
+                                 '[ReturnName="StorageListSearchResult"]', IS_OPTN);
+  { ServiceSoap.StorageAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageAdd', '',
+                                 '[ReturnName="StorageAddResult"]', IS_OPTN);
+  { ServiceSoap.StorageModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageModify', '',
+                                 '[ReturnName="StorageModifyResult"]', IS_OPTN);
+  { ServiceSoap.StorageDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'StorageDelete', '',
+                                 '[ReturnName="StorageDeleteResult"]', IS_OPTN);
+  { ServiceSoap.ContentAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentAdd', '',
+                                 '[ReturnName="ContentAddResult"]', IS_OPTN);
+  { ServiceSoap.ContentAdd_WatchFolder }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentAdd_WatchFolder', '',
+                                 '[ReturnName="ContentAdd_WatchFolderResult"]', IS_OPTN);
+  { ServiceSoap.ContentFileInfoUpdate }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdate', '',
+                                 '[ReturnName="ContentFileInfoUpdateResult"]', IS_OPTN);
+  { ServiceSoap.ContentFileInfoUpdateEx }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateEx', '',
+                                 '[ReturnName="ContentFileInfoUpdateExResult"]', IS_OPTN);
+  { ServiceSoap.ContentFileInfoUpdateImage }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateImage', '',
+                                 '[ReturnName="ContentFileInfoUpdateImageResult"]', IS_OPTN);
+  { ServiceSoap.ContentFileInfoUpdateAudio }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentFileInfoUpdateAudio', '',
+                                 '[ReturnName="ContentFileInfoUpdateAudioResult"]', IS_OPTN);
+  { ServiceSoap.GetContentAbstractInfo }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetContentAbstractInfo', '',
+                                 '[ReturnName="GetContentAbstractInfoResult"]', IS_OPTN);
+  { ServiceSoap.ContentList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentList', '',
+                                 '[ReturnName="ContentListResult"]', IS_OPTN);
+  { ServiceSoap.ContentModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentModify', '',
+                                 '[ReturnName="ContentModifyResult"]', IS_OPTN);
+  { ServiceSoap.ContentDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDelete', '',
+                                 '[ReturnName="ContentDeleteResult"]', IS_OPTN);
+  { ServiceSoap.VideoContentDeleteMulti }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'VideoContentDeleteMulti', '',
+                                 '[ReturnName="VideoContentDeleteMultiResult"]', IS_OPTN);
+  { ServiceSoap.AudioContentDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'AudioContentDelete', '',
+                                 '[ReturnName="AudioContentDeleteResult"]', IS_OPTN);
+  { ServiceSoap.AudioContentDeleteMulti }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'AudioContentDeleteMulti', '',
+                                 '[ReturnName="AudioContentDeleteMultiResult"]', IS_OPTN);
+  { ServiceSoap.ContentVanish }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentVanish', '',
+                                 '[ReturnName="ContentVanishResult"]', IS_OPTN);
+  { ServiceSoap.ContentRecovery }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentRecovery', '',
+                                 '[ReturnName="ContentRecoveryResult"]', IS_OPTN);
+  { ServiceSoap.ContentSetPreview }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentSetPreview', '',
+                                 '[ReturnName="ContentSetPreviewResult"]', IS_OPTN);
+  { ServiceSoap.ContentCheck }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentCheck', '',
+                                 '[ReturnName="ContentCheckResult"]', IS_OPTN);
+  { ServiceSoap.ContentDeleteList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeleteList', '',
+                                 '[ReturnName="ContentDeleteListResult"]', IS_OPTN);
+  { ServiceSoap.ContentDeleteUpdate }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeleteUpdate', '',
+                                 '[ReturnName="ContentDeleteUpdateResult"]', IS_OPTN);
+  { ServiceSoap.ContentDeletedList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeletedList', '',
+                                 '[ReturnName="ContentDeletedListResult"]', IS_OPTN);
+  { ServiceSoap.ContentDeletedListEx }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentDeletedListEx', '',
+                                 '[ReturnName="ContentDeletedListExResult"]', IS_OPTN);
+  { ServiceSoap.ContentLog }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ContentLog', '',
+                                 '[ReturnName="ContentLogResult"]', IS_OPTN);
+  { ServiceSoap.EdiusPluginContentAddTemp }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddTemp', '',
+                                 '[ReturnName="EdiusPluginContentAddTempResult"]', IS_OPTN);
+  { ServiceSoap.EdiusPluginContentAddCompleteTemp }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'EdiusPluginContentAddCompleteTemp', '',
+                                 '[ReturnName="EdiusPluginContentAddCompleteTempResult"]', IS_OPTN);
+  { ServiceSoap.PCPAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPAdd', '',
+                                 '[ReturnName="PCPAddResult"]', IS_OPTN);
+  { ServiceSoap.PCPListAll }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPListAll', '',
+                                 '[ReturnName="PCPListAllResult"]', IS_OPTN);
+  { ServiceSoap.PCPListPageSearch }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPListPageSearch', '',
+                                 '[ReturnName="PCPListPageSearchResult"]', IS_OPTN);
+  { ServiceSoap.PCPModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPModify', '',
+                                 '[ReturnName="PCPModifyResult"]', IS_OPTN);
+  { ServiceSoap.PCPDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'PCPDelete', '',
+                                 '[ReturnName="PCPDeleteResult"]', IS_OPTN);
+  { ServiceSoap.TranscodeOrderUpdateEx }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'TranscodeOrderUpdateEx', '',
+                                 '[ReturnName="TranscodeOrderUpdateExResult"]', IS_OPTN);
+  { ServiceSoap.SCDOrderList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SCDOrderList', '',
+                                 '[ReturnName="SCDOrderListResult"]', IS_OPTN);
+  { ServiceSoap.SCDOrderUpdate }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SCDOrderUpdate', '',
+                                 '[ReturnName="SCDOrderUpdateResult"]', IS_OPTN);
+  { ServiceSoap.SCDImageList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SCDImageList', '',
+                                 '[ReturnName="SCDImageListResult"]', IS_OPTN);
+  { ServiceSoap.ProjectAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectAdd', '',
+                                 '[ReturnName="ProjectAddResult"]', IS_OPTN);
+  { ServiceSoap.ProjectAdd_Auto }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectAdd_Auto', '',
+                                 '[ReturnName="ProjectAdd_AutoResult"]', IS_OPTN);
+  { ServiceSoap.ProjectCategoryList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectCategoryList', '',
+                                 '[ReturnName="ProjectCategoryListResult"]', IS_OPTN);
+  { ServiceSoap.ProjectList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectList', '',
+                                 '[ReturnName="ProjectListResult"]', IS_OPTN);
+  { ServiceSoap.ProjectModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectModify', '',
+                                 '[ReturnName="ProjectModifyResult"]', IS_OPTN);
+  { ServiceSoap.ProjectDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProjectDelete', '',
+                                 '[ReturnName="ProjectDeleteResult"]', IS_OPTN);
+  { ServiceSoap.ThumbnailListAll }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailListAll', '',
+                                 '[ReturnName="ThumbnailListAllResult"]', IS_OPTN);
+  { ServiceSoap.ThumbnailListSearch }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailListSearch', '',
+                                 '[ReturnName="ThumbnailListSearchResult"]', IS_OPTN);
+  { ServiceSoap.ThumbnailAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailAdd', '',
+                                 '[ReturnName="ThumbnailAddResult"]', IS_OPTN);
+  { ServiceSoap.ThumbnailModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailModify', '',
+                                 '[ReturnName="ThumbnailModifyResult"]', IS_OPTN);
+  { ServiceSoap.ThumbnailDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ThumbnailDelete', '',
+                                 '[ReturnName="ThumbnailDeleteResult"]', IS_OPTN);
+  { ServiceSoap.ServerList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ServerList', '',
+                                 '[ReturnName="ServerListResult"]', IS_OPTN);
+  { ServiceSoap.ServerAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ServerAdd', '',
+                                 '[ReturnName="ServerAddResult"]', IS_OPTN);
+  { ServiceSoap.ServerModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ServerModify', '',
+                                 '[ReturnName="ServerModifyResult"]', IS_OPTN);
+  { ServiceSoap.ExtList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExtList', '',
+                                 '[ReturnName="ExtListResult"]', IS_OPTN);
+  { ServiceSoap.ExtAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExtAdd', '',
+                                 '[ReturnName="ExtAddResult"]', IS_OPTN);
+  { ServiceSoap.ExtModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExtModify', '',
+                                 '[ReturnName="ExtModifyResult"]', IS_OPTN);
+  { ServiceSoap.RimageAgentList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'RimageAgentList', '',
+                                 '[ReturnName="RimageAgentListResult"]', IS_OPTN);
+  { ServiceSoap.RimageAgentInfo }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'RimageAgentInfo', '',
+                                 '[ReturnName="RimageAgentInfoResult"]', IS_OPTN);
+  { ServiceSoap.RimageAgentAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'RimageAgentAdd', '',
+                                 '[ReturnName="RimageAgentAddResult"]', IS_OPTN);
+  { ServiceSoap.ProCoderAgentInfo }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProCoderAgentInfo', '',
+                                 '[ReturnName="ProCoderAgentInfoResult"]', IS_OPTN);
+  { ServiceSoap.ProCoderAgentList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProCoderAgentList', '',
+                                 '[ReturnName="ProCoderAgentListResult"]', IS_OPTN);
+  { ServiceSoap.ProCoderAgentAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ProCoderAgentAdd', '',
+                                 '[ReturnName="ProCoderAgentAddResult"]', IS_OPTN);
+  { ServiceSoap.SetMetaHead }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SetMetaHead', '',
+                                 '[ReturnName="SetMetaHeadResult"]', IS_OPTN);
+  { ServiceSoap.GetMetaHead }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetMetaHead', '',
+                                 '[ReturnName="GetMetaHeadResult"]', IS_OPTN);
+  { ServiceSoap.SetAudioMetaHead }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SetAudioMetaHead', '',
+                                 '[ReturnName="SetAudioMetaHeadResult"]', IS_OPTN);
+  { ServiceSoap.GetAudioMetaHead }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetAudioMetaHead', '',
+                                 '[ReturnName="GetAudioMetaHeadResult"]', IS_OPTN);
+  { ServiceSoap.SetAgilityPreset }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SetAgilityPreset', '',
+                                 '[ReturnName="SetAgilityPresetResult"]', IS_OPTN);
+  { ServiceSoap.GetAgilityPreset }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetAgilityPreset', '',
+                                 '[ReturnName="GetAgilityPresetResult"]', IS_OPTN);
+  { ServiceSoap.GetEngineConnectionString }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'GetEngineConnectionString', '',
+                                 '[ReturnName="GetEngineConnectionStringResult"]', IS_OPTN);
+  { ServiceSoap.SetEngineConnectionString }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'SetEngineConnectionString', '',
+                                 '[ReturnName="SetEngineConnectionStringResult"]', IS_OPTN);
+  { ServiceSoap.ReportingContents }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ReportingContents', '',
+                                 '[ReturnName="ReportingContentsResult"]', IS_OPTN);
+  { ServiceSoap.ExecuteSQL }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'ExecuteSQL', '',
+                                 '[ReturnName="ExecuteSQLResult"]', IS_OPTN);
+  { ServiceSoap.CoverAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverAdd', '',
+                                 '[ReturnName="CoverAddResult"]', IS_OPTN);
+  { ServiceSoap.CoverListAll }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverListAll', '',
+                                 '[ReturnName="CoverListAllResult"]', IS_OPTN);
+  { ServiceSoap.CoverListPageSearch }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverListPageSearch', '',
+                                 '[ReturnName="CoverListPageSearchResult"]', IS_OPTN);
+  { ServiceSoap.CoverModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverModify', '',
+                                 '[ReturnName="CoverModifyResult"]', IS_OPTN);
+  { ServiceSoap.CoverDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CoverDelete', '',
+                                 '[ReturnName="CoverDeleteResult"]', IS_OPTN);
+  { ServiceSoap.TestEngineAPI }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'TestEngineAPI', '',
+                                 '[ReturnName="TestEngineAPIResult"]', IS_OPTN);
+  { ServiceSoap.EngineAPI }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'EngineAPI', '',
+                                 '[ReturnName="EngineAPIResult"]', IS_OPTN);
+  { ServiceSoap.CategoryList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryList', '',
+                                 '[ReturnName="CategoryListResult"]', IS_OPTN);
+  { ServiceSoap.CategoryAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryAdd', '',
+                                 '[ReturnName="CategoryAddResult"]', IS_OPTN);
+  { ServiceSoap.CategoryModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryModify', '',
+                                 '[ReturnName="CategoryModifyResult"]', IS_OPTN);
+  { ServiceSoap.CategoryDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CategoryDelete', '',
+                                 '[ReturnName="CategoryDeleteResult"]', IS_OPTN);
+  { ServiceSoap.AudioCategoryList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'AudioCategoryList', '',
+                                 '[ReturnName="AudioCategoryListResult"]', IS_OPTN);
+  { ServiceSoap.AudioCategoryAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'AudioCategoryAdd', '',
+                                 '[ReturnName="AudioCategoryAddResult"]', IS_OPTN);
+  { ServiceSoap.AudioCategoryModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'AudioCategoryModify', '',
+                                 '[ReturnName="AudioCategoryModifyResult"]', IS_OPTN);
+  { ServiceSoap.AudioCategoryDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'AudioCategoryDelete', '',
+                                 '[ReturnName="AudioCategoryDeleteResult"]', IS_OPTN);
+  { ServiceSoap.MemberLogin }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberLogin', '',
+                                 '[ReturnName="MemberLoginResult"]', IS_OPTN);
+  { ServiceSoap.MemberLoginEx }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberLoginEx', '',
+                                 '[ReturnName="MemberLoginExResult"]', IS_OPTN);
+  { ServiceSoap.MemberAdd }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberAdd', '',
+                                 '[ReturnName="MemberAddResult"]', IS_OPTN);
+  { ServiceSoap.MemberList }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberList', '',
+                                 '[ReturnName="MemberListResult"]', IS_OPTN);
+  { ServiceSoap.MemberModify }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberModify', '',
+                                 '[ReturnName="MemberModifyResult"]', IS_OPTN);
+  { ServiceSoap.MemberDelete }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'MemberDelete', '',
+                                 '[ReturnName="MemberDeleteResult"]', IS_OPTN);
+  { ServiceSoap.VersionInfo }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'VersionInfo', '',
+                                 '[ReturnName="VersionInfoResult"]', IS_OPTN);
+  { ServiceSoap.CheckFileExists }
+  InvRegistry.RegisterMethodInfo(TypeInfo(ServiceSoap), 'CheckFileExists', '',
+                                 '[ReturnName="CheckFileExistsResult"]');
 
 end.
