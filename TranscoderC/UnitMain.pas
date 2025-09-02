@@ -513,10 +513,10 @@ function TfrmMain.GetOutputOptions: TOutputOptions;
 var
    IO: TOutputOptions;
    i : Integer;
-   iw : Integer;
+   ih : Integer;
 begin
    i := 0;
-   iw := 0;
+   ih := 0;
    InitOutputOptions(@IO);
    SysUtils.ForceDirectories( g_PREVIEW_PATH + g_STORAGE_SUBPATH + 'Preview' );
    IO.FileName := g_PREVIEW_PATH + g_STORAGE_SUBPATH + 'Preview\' + ChangeFileExt( g_TRANS_FILENAME, '.mp4' );
@@ -525,22 +525,24 @@ begin
    begin
       if FFEncoder1.Decoder.IsVideoStream(i) then
       begin
-         iw := FFEncoder1.Decoder.VideoStreamInfos[i].Width;
+         ih := FFEncoder1.Decoder.VideoStreamInfos[i].Width;
          break;
       end;
    end;
 
-   if iw = 1920 then
+   if ih >= 2160 then
    begin
+
       //-filter_complex join=inputs=2      => input 2개를 Stereo로 만든다.
-      //IO.Options := ' -ar 44100 -filter_complex join=inputs=2 -b:a 126k -b:v 500k -c:v libx264 -vf "scale=512:288" -sn';
-      IO.Options := ' -ar 44100 -filter_complex join=inputs=2 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -x264opts b-pyramid=0 -c:v libx264 -vf "scale=512:288" -sn';
+      //GPU 운영을 위해 아래 내용으로 바꾸어야 한다.
+      //ffmpeg.exe -i "O:\CMS\CMS_Storage\202508\Content\Video\AB-OBUHH_merge_test_05_000_000_20250827161419.mxf" -vf "scale=512:288,format=yuv420p" -c:v h264_nvenc -b:v 500k -g 33 -bf 1 -refs 1 -coder 0 -ar 44100 -b:a 126k -sn output.mp4
+      IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=512:288,format=yuv420p" -sn';
+
    end
    else begin
 //      IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -c:v libx264 -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288" -sn';
-      IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -x264opts b-pyramid=0 -c:v libx264 -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288" -sn';
+      IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288,format=yuv420p" -sn';
    end;
-
 //   if iw = 1920 then
 //   begin
 //      IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -c:v libx264 -threads 8 -vf "scale=512:288" -sn';
