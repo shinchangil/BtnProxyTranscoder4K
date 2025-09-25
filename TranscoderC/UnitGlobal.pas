@@ -33,6 +33,7 @@ var
    g_STORAGE_PATH    : String;
    g_STORAGE_SUBPATH : String;
    g_PREVIEW_PATH    : String;
+   g_PREVIEW_PATH2   : String; //시니어 경로 이슈로 추가함.
    g_StartTimeFormat : String = '';
    g_StartTime       : String = '';
    g_EndTimeFormat   : String = '';
@@ -53,6 +54,7 @@ begin
          g_SoapIP := ConfigIni.ReadString( 'INFO', 'ENGINE_IP', '127.0.0.1' );
          g_WorkMax := ConfigIni.ReadInteger( 'INFO', 'WORK_MAX', 4);   //작업 최대 갯수
          g_PREVIEW_PATH := ConfigIni.ReadString( 'INFO', 'PREVIEW_PATH', '');//스토리지 경로 대체
+         g_PREVIEW_PATH2 := ConfigIni.ReadString( 'INFO', 'SENIOR_PREVIEW_PATH', '');//시니어 스토리지 경로 대체
       finally
          FreeAndNil(ConfigIni);
       end;

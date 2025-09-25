@@ -430,6 +430,11 @@ begin
       g_STORAGE_PATH := ParamStr(3);
       g_STORAGE_SUBPATH := ParamStr(4);
       lbl_ContentId.Caption := g_CONTENT_ID;
+      if Copy(g_CONTENT_ID, 1, 1) = '9' then
+      begin
+         g_PREVIEW_PATH := g_PREVIEW_PATH2;
+      end;
+
       lbl_FileName.Caption := g_TRANS_FILENAME;
       SysUtils.ForceDirectories(g_PREVIEW_PATH + g_STORAGE_SUBPATH);
       Sleep(1000);
