@@ -258,6 +258,10 @@ begin
          begin
             BMP2.Canvas.StretchDraw(Rect(0, 0, 320, 180), BMP3);
          end
+         else if BMP3.Width <= BMP3.Height then
+         begin
+            BMP2.Canvas.StretchDraw(Rect(80, 0, 240, 180), BMP3);
+         end
          else begin
             BMP2.Canvas.StretchDraw(Rect(25, -9, 295, 180), BMP3);
          end;
@@ -518,9 +522,12 @@ function TfrmMain.GetOutputOptions: TOutputOptions;
 var
    IO: TOutputOptions;
    i : Integer;
+   iw : Integer;
    ih : Integer;
+   bPortrait : Boolean;
 begin
    i := 0;
+   iw := 0;
    ih := 0;
    InitOutputOptions(@IO);
    SysUtils.ForceDirectories( g_PREVIEW_PATH + g_STORAGE_SUBPATH + 'Preview' );
@@ -530,24 +537,56 @@ begin
    begin
       if FFEncoder1.Decoder.IsVideoStream(i) then
       begin
-         ih := FFEncoder1.Decoder.VideoStreamInfos[i].Width;
+         iw := FFEncoder1.Decoder.VideoStreamInfos[i].Width;
+         ih := FFEncoder1.Decoder.VideoStreamInfos[i].Height;
+         bPortrait := (iw < ih);  // 세로 영상 판단
          break;
       end;
    end;
 
-   if ih >= 2160 then
-   begin
-
-      //-filter_complex join=inputs=2      => input 2개를 Stereo로 만든다.
-      //GPU 운영을 위해 아래 내용으로 바꾸어야 한다.
-      //ffmpeg.exe -i "O:\CMS\CMS_Storage\202508\Content\Video\AB-OBUHH_merge_test_05_000_000_20250827161419.mxf" -vf "scale=512:288,format=yuv420p" -c:v h264_nvenc -b:v 500k -g 33 -bf 1 -refs 1 -coder 0 -ar 44100 -b:a 126k -sn output.mp4
-      IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=512:288,format=yuv420p" -sn';
-
+   if bPortrait then
+   begin  //세로 영상
+      IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=288:512,format=yuv420p" -sn';
    end
    else begin
-//      IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -c:v libx264 -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288" -sn';
-      IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288,format=yuv420p" -sn';
+      if iw >= 2160 then
+      begin
+         IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=512:288,format=yuv420p" -sn';
+      end
+      else begin
+         IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288,format=yuv420p" -sn';
+      end;
    end;
+
+
+
+
+
+
+//   if iw >= 2160 then
+//   begin
+//      //-filter_complex join=inputs=2      => input 2개를 Stereo로 만든다.
+//      //GPU 운영을 위해 아래 내용으로 바꾸어야 한다.
+//      //ffmpeg.exe -i "O:\CMS\CMS_Storage\202508\Content\Video\AB-OBUHH_merge_test_05_000_000_20250827161419.mxf" -vf "scale=512:288,format=yuv420p" -c:v h264_nvenc -b:v 500k -g 33 -bf 1 -refs 1 -coder 0 -ar 44100 -b:a 126k -sn output.mp4
+//      if bPortrait then
+//      begin //세로 영상
+//         IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=288:512,format=yuv420p" -sn';
+//      end
+//      else begin
+//         IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=512:288,format=yuv420p" -sn';
+//      end;
+//
+//   end
+//   else begin
+////      IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -c:v libx264 -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288" -sn';
+//      if bPortrait then
+//      begin //세로 영상
+//         IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -vf "scale=288:512,format=yuv420p" -sn';
+//      end
+//      else begin
+//         IO.Options := ' -ar 44100 -af "pan=stereo:c0=FL:c1=FR" -b:a 126k -b:v 500k -g 33 -bf 1 -coder 0 -refs 1 -c:v h264_nvenc -aspect 16:9 -vf "crop=720:471:0:35,pad=856:471:68:0:black,scale=512:288,format=yuv420p" -sn';
+//      end;
+//   end;
 //   if iw = 1920 then
 //   begin
 //      IO.Options := ' -ar 44100 -b:a 126k -b:v 500k -c:v libx264 -threads 8 -vf "scale=512:288" -sn';
